@@ -1,12 +1,12 @@
 package fr.isep.algo.gestionemploisdutemps;
 
 public class Etudiant extends Utilisateur{
-    protected String numEtud;
+    protected int numEtud;
     protected String filiere;
     protected String niveau;
 
     public Etudiant(int idUtilisateur, String nom, String prenom, String email, String motDePasse,
-                    String numEtud, String filiere, String niveau) {
+                    int numEtud) {
         super(idUtilisateur, nom, prenom, email, motDePasse);
         this.numEtud = numEtud;
         this.filiere = filiere;
@@ -26,11 +26,11 @@ public class Etudiant extends Utilisateur{
     }
 
     // Getters et setters
-    public String getNumEtud() {
+    public int getNumEtud() {
         return numEtud;
     }
 
-    public void setNumEtud(String numEtud) {
+    public void setNumEtud(int numEtud) {
         this.numEtud = numEtud;
     }
 

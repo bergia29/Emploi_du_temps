@@ -1,11 +1,17 @@
 package fr.isep.algo.gestionemploisdutemps;
 
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
 public class Administrateur extends Utilisateur {
     protected String fonction;
 
     public Administrateur(int idUtilisateur, String nom, String prenom, String email, String motDePasse, String fonction) {
         super (idUtilisateur, nom, prenom, email, motDePasse);
         this.fonction = fonction;
+    }
+    @Override
+    public String toString(){
+        return "L'admin " + getNom() + " " + getPrenom() + ", Fonction: " + fonction;
     }
 
     public void modifierEmploiDuTemps() {
