@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.planningcampus.planningcampus.controller.EnseignantController">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="20.0" styleClass="dashboard-section" BorderPane.alignment="CENTER">
+            <children>
+                <Label styleClass="dashboard-title" text="Tableau de bord Enseignant">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#handleVoirEmploiDuTemps" styleClass="info-button" text="Emploi du temps">
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#handleSignalerProbleme" styleClass="warning-button" text="Signaler un problème">
+                            <HBox.margin>
+                                <Insets right="20.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Label fx:id="welcomeLabel" text="Bienvenue, Enseignant">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="danger-button" text="Déconnexion">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Mes Cours">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="coursTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <BorderPane.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </BorderPane.margin>
+                                </TableView>
+                            </center>
+                            <bottom>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#handleVoirEtudiants" styleClass="dashboard-button" text="Voir les étudiants" />
+                                        <Button mnemonicParsing="false" onAction="#handleVoirDetailsCours" styleClass="dashboard-button" text="Voir les détails" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </HBox>
+                            </bottom>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Problèmes signalés">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="problemesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <BorderPane.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </BorderPane.margin>
+                                </TableView>
+                            </center>
+                            <bottom>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#handleSignalerProbleme" styleClass="dashboard-button" text="Signaler un nouveau problème" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </HBox>
+                            </bottom>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Notifications">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="notificationsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <BorderPane.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </BorderPane.margin>
+                                </TableView>
+                            </center>
+                            <bottom>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#handleMarquerLue" styleClass="info-button" text="Marquer comme lue" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </HBox>
+                            </bottom>
+                        </BorderPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    <bottom>
+        <VBox alignment="CENTER" prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="© 2025 - Système de Gestion des Emplois du Temps" />
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>
