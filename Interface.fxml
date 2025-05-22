@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="labelPrenom" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.isep.algo.gestionemploisdutemps.InterfaceController">
+   <children>
+      <AnchorPane prefHeight="54.0" prefWidth="750.0" style="-fx-background-color: #c3cedd;" />
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="750.0" text="IsePlanning" textAlignment="CENTER" textFill="#114686">
+         <font>
+            <Font name="Century Gothic Bold" size="22.0" />
+         </font>
+      </Label>
+      <!-- ImageView qui agit comme un bouton -->
+      <ImageView fx:id="myImageView" accessibleRole="BUTTON" fitHeight="31.0" fitWidth="52.0" layoutX="705.0" layoutY="12.0" onMouseClicked="#handleImageClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@menu.png" />
+         </image>
+      </ImageView>
+      <!-- Menu caché par défaut -->
+      <AnchorPane fx:id="menuPane" disable="true" layoutX="530.0" layoutY="53.0" prefHeight="372.0" prefWidth="220.0" style="-fx-background-color: #c3cedd;" visible="false">
+         <children>
+            <Button layoutY="263.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Notification" textFill="#101010">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="bp_Emploidutemps" mnemonicParsing="false" prefHeight="54.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Emploi du temps" textFill="#101010">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="bp_Parametre" layoutY="54.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-border-color: white;" text="Paramètres" textFill="#101010">
+               <font>
+                  <Font name="Cambria Bold" size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label fx:id="labelNom" contentDisplay="CENTER" layoutX="6.0" layoutY="54.0" prefHeight="38.0" prefWidth="180.0" text="Nom" textAlignment="CENTER">
+         <font>
+            <Font name="Century Gothic" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelPrenom" contentDisplay="CENTER" layoutX="6.0" layoutY="92.0" prefHeight="37.0" prefWidth="180.0" text="Prénom" textAlignment="CENTER">
+         <font>
+            <Font name="Century Gothic" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNumEtud" contentDisplay="CENTER" layoutX="6.0" layoutY="130.0" prefHeight="37.0" prefWidth="180.0" text="NumEtud" textAlignment="CENTER">
+         <font>
+            <Font name="Century Gothic" size="15.0" />
+         </font>
+      </Label>
+      <ListView layoutX="14.0" layoutY="168.0" prefHeight="408.0" prefWidth="504.0" />
+   </children>
+</AnchorPane>
