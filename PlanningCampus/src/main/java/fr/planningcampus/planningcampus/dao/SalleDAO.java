@@ -254,7 +254,7 @@ public class SalleDAO {
      */
     public boolean isSalleDisponible(int salleId, int horaireId) {
         String query = "SELECT COUNT(*) FROM cours c " +
-                "JOIN horaire h ON c.id_horaire = h.id " +
+                "JOIN horaire h ON c.id_seance = h.id " +
                 "WHERE c.id_salle = ? AND h.id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();

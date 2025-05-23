@@ -62,7 +62,7 @@ CREATE TABLE salle (
     equipements TEXT
 );
 
--- Création de la table horaire
+-- Création de la table seance
 CREATE TABLE Seance (
     id INT AUTO_INCREMENT PRIMARY KEY,
     jour VARCHAR(20) NOT NULL,
@@ -77,11 +77,11 @@ CREATE TABLE cours (
     id INT AUTO_INCREMENT PRIMARY KEY,
     matiere VARCHAR(100) NOT NULL,
     id_enseignant INT,
-    id_horaire INT,
+    id_seance INT,
     id_salle INT,
     groupe VARCHAR(50), -- Groupe d'étudiants assigné au cours
     FOREIGN KEY (id_enseignant) REFERENCES enseignant(id) ON DELETE SET NULL,
-    FOREIGN KEY (id_horaire) REFERENCES horaire(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_seance) REFERENCES seance(id) ON DELETE CASCADE,
     FOREIGN KEY (id_salle) REFERENCES salle(id) ON DELETE SET NULL
 );
 
@@ -183,7 +183,7 @@ INSERT INTO Seance (jour, heureDebut, heureFin, semaine) VALUES
 ('Vendredi', '11:00:00', '13:00:00', 5);
 
 -- Cours
-INSERT INTO cours (matiere, id_enseignant, id_horaire, id_salle, groupe) VALUES
+INSERT INTO cours (matiere, id_enseignant, id_seance, id_salle, groupe) VALUES
 ('Programmation Web', 2, 1, 1, 'Aube Rouge'),
 ('Design UX', 2, 2, 1, 'Orchidée Bleue'),
 ('Cybersécurité', 3, 3, 2, 'Tempête Jaune'),

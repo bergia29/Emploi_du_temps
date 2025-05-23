@@ -300,7 +300,7 @@ public class EnseignantController implements Initializable {
     @FXML
     private void handleLogout(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/timeplanner/view/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fr/planningcampus/planningcampus/view/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);

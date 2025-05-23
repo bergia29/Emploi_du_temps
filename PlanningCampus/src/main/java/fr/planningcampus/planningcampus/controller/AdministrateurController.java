@@ -1008,7 +1008,7 @@ public class AdministrateurController implements Initializable {
     @FXML
     private void handleVoirEmploiDuTemps(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/timeplanner/view/emploi-du-temps.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/planningcampus/planningcampus/view/emploi-du-temps.fxml"));
             Parent root = loader.load();
 
             EmploiDuTempsController controller = loader.getController();

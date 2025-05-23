@@ -15,7 +15,7 @@ public class Enseignant extends Utilisateur {
     /**
      * Constructeur par défaut
      */
-    public Enseignant() {
+    public Enseignant(String nom, String prenom, String email, String motDePasse) {
         super();
         this.matieres = new ArrayList<>();
     }

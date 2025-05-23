@@ -20,7 +20,7 @@ public class SeanceDAO {
      */
     public List<Seance> getAllHoraires() {
         List<Seance> seances = new ArrayList<>();
-        String query = "SELECT * FROM horaire";
+        String query = "SELECT * FROM seance";
 
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -94,7 +94,7 @@ public class SeanceDAO {
      * @return Horaire trouvé ou null
      */
     public Seance getHoraireById(int id) {
-        String query = "SELECT * FROM horaire WHERE id = ?";
+        String query = "SELECT * FROM seance WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -165,7 +165,7 @@ public class SeanceDAO {
      * @return true si l'ajout a réussi, false sinon
      */
     public boolean addHoraire(Seance seance) {
-        String query = "INSERT INTO horaire (jour, heureDebut, heureFin, semaine, date) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO seance (jour, heureDebut, heureFin, semaine, date) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -207,7 +207,7 @@ public class SeanceDAO {
      * @return true si la mise à jour a réussi, false sinon
      */
     public boolean updateHoraire(Seance seance) {
-        String query = "UPDATE horaire SET jour = ?, heureDebut = ?, heureFin = ?, semaine = ?, date = ? WHERE id = ?";
+        String query = "UPDATE seance SET jour = ?, heureDebut = ?, heureFin = ?, semaine = ?, date = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -243,7 +243,7 @@ public class SeanceDAO {
      * @return true si la suppression a réussi, false sinon
      */
     public boolean deleteHoraire(int id) {
-        String query = "DELETE FROM horaire WHERE id = ?";
+        String query = "DELETE FROM seance WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -277,7 +277,7 @@ public class SeanceDAO {
             // Si la colonne n'existe pas, l'ajouter
             if (!colonneExiste) {
                 try (Statement stmt = conn.createStatement()) {
-                    stmt.executeUpdate("ALTER TABLE horaire ADD COLUMN date DATE DEFAULT NULL");
+                    stmt.executeUpdate("ALTER TABLE seance ADD COLUMN date DATE DEFAULT NULL");
                     System.out.println("Colonne date ajoutée à la table horaire");
                 }
             }

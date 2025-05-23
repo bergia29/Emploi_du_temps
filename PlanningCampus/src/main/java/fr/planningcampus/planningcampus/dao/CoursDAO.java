@@ -40,10 +40,10 @@ public class CoursDAO {
                 int id = rs.getInt("id");
                 String matiere = rs.getString("matiere");
                 int idEnseignant = rs.getInt("id_enseignant");
-                int idHoraire = rs.getInt("id_horaire");
+                int idSeance = rs.getInt("id_Seance");
                 int idSalle = rs.getInt("id_salle");
 
-                coursData.add(new Object[]{id, matiere, idEnseignant, idHoraire, idSalle});
+                coursData.add(new Object[]{id, matiere, idEnseignant, idSeance, idSalle});
             }
 
             // Maintenant traiter les données récupérées
@@ -51,11 +51,11 @@ public class CoursDAO {
                 int id = (int) data[0];
                 String matiere = (String) data[1];
                 int idEnseignant = (int) data[2];
-                int idHoraire = (int) data[3];
+                int idSeance = (int) data[3];
                 int idSalle = (int) data[4];
 
                 Enseignant enseignant = enseignantDAO.getEnseignantById(idEnseignant);
-                Seance seance = seanceDAO.getHoraireById(idHoraire);
+                Seance seance = seanceDAO.getHoraireById(idSeance);
                 Salle salle = salleDAO.getSalleById(idSalle);
 
                 Cours c = new Cours(id, matiere, enseignant, seance, salle);
@@ -87,14 +87,14 @@ public class CoursDAO {
                 if (rs.next()) {
                     String matiere = rs.getString("matiere");
                     int idEnseignant = rs.getInt("id_enseignant");
-                    int idHoraire = rs.getInt("id_horaire");
+                    int idSeance = rs.getInt("id_seance");
                     int idSalle = rs.getInt("id_salle");
 
                     // Fermeture du ResultSet avant d'appeler d'autres méthodes qui utilisent des connexions
                     rs.close();
 
                     Enseignant enseignant = enseignantDAO.getEnseignantById(idEnseignant);
-                    Seance seance = seanceDAO.getHoraireById(idHoraire);
+                    Seance seance = seanceDAO.getHoraireById(idSeance);
                     Salle salle = salleDAO.getSalleById(idSalle);
 
                     return new Cours(id, matiere, enseignant, seance, salle);
@@ -129,10 +129,10 @@ public class CoursDAO {
                 while (rs.next()) {
                     int id = rs.getInt("id");
                     String matiere = rs.getString("matiere");
-                    int idHoraire = rs.getInt("id_horaire");
+                    int idSeance = rs.getInt("id_seance");
                     int idSalle = rs.getInt("id_salle");
 
-                    coursData.add(new Object[]{id, matiere, idHoraire, idSalle});
+                    coursData.add(new Object[]{id, matiere, idSeance, idSalle});
                 }
 
                 // Fermeture du ResultSet avant d'appeler d'autres méthodes
@@ -144,10 +144,10 @@ public class CoursDAO {
                 for (Object[] data : coursData) {
                     int id = (int) data[0];
                     String matiere = (String) data[1];
-                    int idHoraire = (int) data[2];
+                    int idSeance = (int) data[2];
                     int idSalle = (int) data[3];
 
-                    Seance seance = seanceDAO.getHoraireById(idHoraire);
+                    Seance seance = seanceDAO.getHoraireById(idSeance);
                     Salle salle = salleDAO.getSalleById(idSalle);
 
                     Cours c = new Cours(id, matiere, enseignant, seance, salle);
@@ -186,10 +186,10 @@ public class CoursDAO {
                     int id = rs.getInt("id");
                     String matiere = rs.getString("matiere");
                     int idEnseignant = rs.getInt("id_enseignant");
-                    int idHoraire = rs.getInt("id_horaire");
+                    int idSeance = rs.getInt("id_seance");
                     int idSalle = rs.getInt("id_salle");
 
-                    coursData.add(new Object[]{id, matiere, idEnseignant, idHoraire, idSalle});
+                    coursData.add(new Object[]{id, matiere, idEnseignant, idSeance, idSalle});
                 }
 
                 // Fermeture du ResultSet avant d'appeler d'autres méthodes
@@ -200,11 +200,11 @@ public class CoursDAO {
                     int id = (int) data[0];
                     String matiere = (String) data[1];
                     int idEnseignant = (int) data[2];
-                    int idHoraire = (int) data[3];
+                    int idSeance = (int) data[3];
                     int idSalle = (int) data[4];
 
                     Enseignant enseignant = enseignantDAO.getEnseignantById(idEnseignant);
-                    Seance seance = seanceDAO.getHoraireById(idHoraire);
+                    Seance seance = seanceDAO.getHoraireById(idSeance);
                     Salle salle = salleDAO.getSalleById(idSalle);
 
                     Cours c = new Cours(id, matiere, enseignant, seance, salle);
@@ -226,7 +226,7 @@ public class CoursDAO {
      * @return true si l'ajout a réussi, false sinon
      */
     public boolean addCours(Cours cours) {
-        String query = "INSERT INTO cours (matiere, id_enseignant, id_horaire, id_salle) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO cours (matiere, id_enseignant, id_seance, id_salle) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -598,7 +598,7 @@ public class CoursDAO {
      * @return true si la mise à jour a réussi, false sinon
      */
     public boolean updateCours(Cours cours) {
-        String query = "UPDATE cours SET matiere = ?, id_enseignant = ?, id_horaire = ?, id_salle = ? WHERE id = ?";
+        String query = "UPDATE cours SET matiere = ?, id_enseignant = ?, id_seance = ?, id_salle = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -706,7 +706,7 @@ public class CoursDAO {
                     int id = rs.getInt("id");
                     String matiere = rs.getString("matiere");
                     int idEnseignant = rs.getInt("id_enseignant");
-                    int idHoraire = rs.getInt("id_horaire");
+                    int idHoraire = rs.getInt("id_seance");
 
                     coursData.add(new Object[]{id, matiere, idEnseignant, idHoraire});
                 }

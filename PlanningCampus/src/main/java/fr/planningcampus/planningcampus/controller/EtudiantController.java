@@ -305,7 +305,7 @@ public class EtudiantController implements Initializable {
     @FXML
     private void handleVoirEmploiDuTemps(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/timeplanner/view/emploi-du-temps.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/planningcampus/plannningcampus/view/emploi-du-temps.fxml"));
             Parent root = loader.load();
 
             fr.planningcampus.planningcampus.controller.EmploiDuTempsController controller = loader.getController();

@@ -14,7 +14,7 @@ public class Etudiant extends Utilisateur {
     /**
      * Constructeur par défaut
      */
-    public Etudiant() {
+    public Etudiant(String nom, String prenom, String email, String motDePasse) {
         super();
         this.notes = new ArrayList<>();
     }

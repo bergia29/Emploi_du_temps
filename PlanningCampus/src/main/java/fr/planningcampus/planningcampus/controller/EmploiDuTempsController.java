@@ -247,7 +247,7 @@ public class EmploiDuTempsController implements Initializable {
                 viewName = "admin.fxml";
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/planningcampuus/planningcampus/view/" + viewName));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/planningcampus/planningcampus/view/admin-dashboard.fxml"));
             Parent root = loader.load();
 
             // Passage de l'utilisateur connecté au contrôleur

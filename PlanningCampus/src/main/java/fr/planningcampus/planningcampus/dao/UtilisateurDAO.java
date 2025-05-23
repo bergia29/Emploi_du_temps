@@ -194,7 +194,7 @@ public class UtilisateurDAO {
             // Si aucun administrateur n'est trouvé, ajouter un administrateur par défaut
             if (administrateurs.isEmpty()) {
                 System.out.println("Aucun administrateur trouvé, création d'un administrateur par défaut");
-                Administrateur adminDefaut = new Administrateur(0, "Admin", "Default", "admin@timeplanner.com", "admin123");
+                Administrateur adminDefaut = new Administrateur(0, "Admin", "Default", "admin@gmail.com", "admin123");
                 if (addUtilisateur(adminDefaut)) {
                     administrateurs.add(adminDefaut);
                 }

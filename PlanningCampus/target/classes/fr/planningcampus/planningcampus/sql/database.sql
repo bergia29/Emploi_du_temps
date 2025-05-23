@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS note_etudiant;
 DROP TABLE IF EXISTS etudiant_cours;
 DROP TABLE IF EXISTS cours;
 DROP TABLE IF EXISTS salle;
-DROP TABLE IF EXISTS horaire;
+DROP TABLE IF EXISTS Seance;
 DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS etudiant;
 DROP TABLE IF EXISTS matiere_enseignant;
@@ -62,8 +62,8 @@ CREATE TABLE salle (
     equipements TEXT
 );
 
--- Création de la table horaire
-CREATE TABLE horaire (
+-- Création de la table seance
+CREATE TABLE Seance (
     id INT AUTO_INCREMENT PRIMARY KEY,
     jour VARCHAR(20) NOT NULL,
     heureDebut TIME NOT NULL,
@@ -77,11 +77,11 @@ CREATE TABLE cours (
     id INT AUTO_INCREMENT PRIMARY KEY,
     matiere VARCHAR(100) NOT NULL,
     id_enseignant INT,
-    id_horaire INT,
+    id_seance INT,
     id_salle INT,
     groupe VARCHAR(50), -- Groupe d'étudiants assigné au cours
     FOREIGN KEY (id_enseignant) REFERENCES enseignant(id) ON DELETE SET NULL,
-    FOREIGN KEY (id_horaire) REFERENCES horaire(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_seance) REFERENCES seance(id) ON DELETE CASCADE,
     FOREIGN KEY (id_salle) REFERENCES salle(id) ON DELETE SET NULL
 );
 
@@ -116,78 +116,101 @@ CREATE TABLE notification (
     FOREIGN KEY (id_expediteur) REFERENCES utilisateur(id) ON DELETE SET NULL
 );
 
--- Insertion de données de test
 -- Utilisateurs
 INSERT INTO utilisateur (nom, prenom, email, motDePasse, type) VALUES
-('Admin', 'System', 'admin@timeplanner.com', 'admin123', 'admin'),
-('Dupont', 'Jean', 'jean.dupont@timeplanner.com', 'enseignant123', 'enseignant'),
-('Martin', 'Sophie', 'sophie.martin@timeplanner.com', 'enseignant123', 'enseignant'),
-('Dubois', 'Pierre', 'pierre.dubois@timeplanner.com', 'etudiant123', 'etudiant'),
-('Leroy', 'Marie', 'marie.leroy@timeplanner.com', 'etudiant123', 'etudiant'),
-('Garcia', 'Lucas', 'lucas.garcia@timeplanner.com', 'etudiant123', 'etudiant');
+('Morin', 'Mirika', 'mirika.morin@admin.com', 'admin321', 'admin'),
+('Grimm', 'Elias', 'elias.grimm@isepteach.com', 'teach001', 'enseignant'),
+('Zhang', 'Wei', 'wei.zhang@isepteach.com', 'teach002', 'enseignant'),
+('Okafor', 'Chinasa', 'chinasa.okafor@isepteach.com', 'teach003', 'enseignant'),
+('Moretti', 'Giulia', 'giulia.moretti@isepteach.com', 'teach004', 'enseignant'),
+('Diallo', 'Amadou', 'amadou.diallo@isepstud.com', 'stud123', 'etudiant'),
+('Tremblay', 'Léa', 'lea.tremblay@isepstud.com', 'stud123', 'etudiant'),
+('Garcia', 'Mateo', 'mateo.garcia@isepstud.com', 'stud123', 'etudiant'),
+('Rossi', 'Chiara', 'chiara.rossi@isepstud.com', 'stud123', 'etudiant'),
+('Kim', 'Soojin', 'soojin.kim@isepstud.com', 'stud123', 'etudiant'),
+('Kouadio', 'Yao', 'yao.kouadio@isepstud.com', 'stud123', 'etudiant'),
+('Müller', 'Lena', 'lena.mueller@isepstud.com', 'stud123', 'etudiant'),
+('Tanaka', 'Haruto', 'haruto.tanaka@isepstud.com', 'stud123', 'etudiant'),
+('Smith', 'Emily', 'emily.smith@isepstud.com', 'stud123', 'etudiant'),
+('Nguyen', 'Bao', 'bao.nguyen@isepstud.com', 'stud123', 'etudiant'),
+('Fernandez', 'Lucia', 'lucia.fernandez@isepstud.com', 'stud123', 'etudiant'),
+('Patel', 'Raj', 'raj.patel@isepstud.com', 'stud123', 'etudiant'),
+('Ali', 'Zainab', 'zainab.ali@isepstud.com', 'stud123', 'etudiant'),
+('Dufour', 'Nicolas', 'nicolas.dufour@isepstud.com', 'stud123', 'etudiant'),
+('Jensen', 'Freja', 'freja.jensen@isepstud.com', 'stud123', 'etudiant');
 
--- Administrateur
+-- Admin
 INSERT INTO administrateur (id) VALUES (1);
 
 -- Enseignants
 INSERT INTO enseignant (id, datePriseFonction) VALUES
-(2, '2020-09-01'),
-(3, '2018-09-01');
+(2, '2019-01-05'),
+(3, '2021-09-10'),
+(4, '2020-06-22'),
+(5, '2022-03-15');
 
--- Matières des enseignants
+-- Matières
 INSERT INTO matiere_enseignant (id_enseignant, matiere) VALUES
-(2, 'Algorithmique'),
-(2, 'Programmation Java'),
-(3, 'Base de données'),
-(3, 'UML');
+(2, 'Programmation Web'),
+(2, 'Design UX'),
+(3, 'Cybersécurité'),
+(4, 'Réseaux Informatiques'),
+(5, 'Intelligence Artificielle');
 
--- Étudiants
+-- Étudiants (groupes)
 INSERT INTO etudiant (id, groupe) VALUES
-(4, 'Groupe A'),
-(5, 'Groupe A'),
-(6, 'Groupe B');
+(6, 'Aube Rouge'), (7, 'Aube Rouge'), (8, 'Aube Rouge'),
+(9, 'Orchidée Bleue'), (10, 'Orchidée Bleue'), (11, 'Orchidée Bleue'),
+(12, 'Tempête Jaune'), (13, 'Tempête Jaune'), (14, 'Tempête Jaune'),
+(15, 'Lynx Vert'), (16, 'Lynx Vert'), (17, 'Lynx Vert'),
+(18, 'Aube Rouge'), (19, 'Orchidée Bleue'), (20, 'Lynx Vert');
 
 -- Salles
 INSERT INTO salle (nom, capacite, localisation, equipements) VALUES
-('A101', 30, 'Bâtiment A, 1er étage', 'Vidéoprojecteur,Tableau blanc,PC'),
-('A102', 25, 'Bâtiment A, 1er étage', 'Vidéoprojecteur,Tableau noir'),
-('B201', 40, 'Bâtiment B, 2ème étage', 'Vidéoprojecteur,PC,Équipement réseau'),
-('B202', 20, 'Bâtiment B, 2ème étage', 'Tableau blanc,PC');
+('Omega1', 35, 'Bloc Omega - Rdc', 'Projecteur, Tableau numérique'),
+('Nova2', 40, 'Bâtiment Nova - Étage 1', 'VR, Table tactile'),
+('HorizonX', 25, 'Tour Horizon - Niveau 2', 'Audio HD, Tableau blanc'),
+('TerraLab', 30, 'Lab Terra - Sous-sol', 'PCs gamer, Routeurs Cisco'),
+('AulaMax', 50, 'Aile Centrale', 'Double écran, pupitre enseignant');
 
--- Horaires
-INSERT INTO horaire (jour, heureDebut, heureFin, semaine) VALUES
-('Lundi', '08:30:00', '10:30:00', 1),
-('Lundi', '10:45:00', '12:45:00', 1),
-('Mardi', '08:30:00', '10:30:00', 1),
-('Mardi', '10:45:00', '12:45:00', 1),
-('Mercredi', '08:30:00', '10:30:00', 1),
-('Mercredi', '10:45:00', '12:45:00', 1);
+-- Seances
+INSERT INTO Seance (jour, heureDebut, heureFin, semaine) VALUES
+('Lundi', '08:00:00', '10:00:00', 5),
+('Lundi', '10:15:00', '12:15:00', 5),
+('Mardi', '13:00:00', '15:00:00', 5),
+('Mercredi', '09:00:00', '11:00:00', 5),
+('Jeudi', '14:00:00', '16:00:00', 5),
+('Vendredi', '11:00:00', '13:00:00', 5);
 
 -- Cours
-INSERT INTO cours (matiere, id_enseignant, id_horaire, id_salle, groupe) VALUES
-('Algorithmique', 2, 1, 1, 'Groupe A'),
-('Programmation Java', 2, 3, 2, 'Groupe A'),
-('Base de données', 3, 2, 3, 'Groupe A'),
-('UML', 3, 4, 4, 'Groupe B');
+INSERT INTO cours (matiere, id_enseignant, id_seance, id_salle, groupe) VALUES
+('Programmation Web', 2, 1, 1, 'Aube Rouge'),
+('Design UX', 2, 2, 1, 'Orchidée Bleue'),
+('Cybersécurité', 3, 3, 2, 'Tempête Jaune'),
+('Réseaux Informatiques', 4, 4, 3, 'Lynx Vert'),
+('Intelligence Artificielle', 5, 5, 4, 'Orchidée Bleue'),
+('Cybersécurité', 3, 6, 5, 'Aube Rouge');
 
--- Association étudiants-cours
+-- Association étudiants-cours (extrait pour 20 étudiants)
 INSERT INTO etudiant_cours (id_etudiant, id_cours) VALUES
-(4, 1), (4, 2), (4, 3),
-(5, 1), (5, 2), (5, 3),
-(6, 4);
+(6, 1), (7, 1), (8, 1), (18, 1), (6, 6), (18, 6),
+(9, 2), (10, 2), (11, 2), (19, 2), (15, 4), (16, 4), (17, 4), (20, 4),
+(12, 3), (13, 3), (14, 3),
+(9, 5), (10, 5), (11, 5), (19, 5);
 
--- Notes
+-- Notes (aléatoires mais crédibles)
 INSERT INTO note_etudiant (id_etudiant, id_cours, note) VALUES
-(4, 1, 15.5),
-(4, 2, 14.0),
-(5, 1, 16.0),
-(5, 2, 13.5),
-(6, 4, 17.5);
+(6, 1, 14.5), (7, 1, 16.0), (8, 1, 12.0), (18, 1, 15.0),
+(6, 6, 17.5), (18, 6, 13.5),
+(9, 2, 18.0), (10, 2, 17.5), (11, 2, 15.5), (19, 2, 16.0),
+(12, 3, 14.0), (13, 3, 14.5), (14, 3, 13.0),
+(15, 4, 15.0), (16, 4, 16.5), (17, 4, 14.0), (20, 4, 12.5),
+(9, 5, 17.0), (10, 5, 16.8), (11, 5, 15.5), (19, 5, 14.8);
 
 -- Notifications
 INSERT INTO notification (contenu, id_destinataire, id_expediteur, date, lue) VALUES
-('Cours d''Algorithmique déplacé en salle A102', 4, 1, '2025-05-15 10:30:00', false),
-('Cours d''Algorithmique déplacé en salle A102', 5, 1, '2025-05-15 10:30:00', false),
-('Cours d''Algorithmique déplacé en salle A102', 6, 1, '2025-05-15 10:30:00', false),
-('Réunion pédagogique le 20 mai à 14h', 2, 1, '2025-05-14 09:00:00', true),
-('Réunion pédagogique le 20 mai à 14h', 3, 1, '2025-05-14 09:00:00', false);
+('Changement de salle pour Réseaux Informatiques – nouvelle salle: HorizonX', 15, 1, '2025-05-22 09:00:00', false),
+('Le cours de Design UX du jeudi est avancé à 10h.', 9, 1, '2025-05-21 14:15:00', true),
+('Un contrôle surprise aura lieu mardi prochain pour le cours de Cybersécurité.', 12, 1, '2025-05-20 13:30:00', false),
+('Mise à jour des notes de Programmation Web disponible.', 6, 1, '2025-05-19 18:00:00', true),
+('Nouvelle ressource ajoutée dans le cours d''IA.', 10, 1, '2025-05-22 10:00:00', false);
