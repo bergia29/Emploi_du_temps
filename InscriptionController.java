@@ -1,70 +1,98 @@
-package fr.isep.algo.gestionemploisdutemps;
+package fr.planningcampus.planningcampus.controller;
 
+import fr.planningcampus.planningcampus.dao.UtilisateurDAO;
+import fr.planningcampus.planningcampus.model.Administrateur;
+import fr.planningcampus.planningcampus.model.Enseignant;
+import fr.planningcampus.planningcampus.model.Etudiant;
+import fr.planningcampus.planningcampus.model.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
+import javafx.scene.control.*;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 import java.io.IOException;
 
 public class InscriptionController {
 
     @FXML
-    private TextField nomField, prenomField, emailField;
+    private TextField nomField;
+
+    @FXML
+    private TextField prenomField;
+
+    @FXML
+    private TextField emailField;
+
     @FXML
     private PasswordField passwordField;
+
     @FXML
     private ComboBox<String> roleSelector;
 
     @FXML
-    private void handleRegister() {
-        String nom = nomField.getText();
-        String prenom = prenomField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
+    public void initialize() {
+        // Initialisation éventuelle
+        roleSelector.setValue("Étudiant"); // valeur par défaut
+    }
+
+    @FXML
+    private void handleRegister(ActionEvent event) {
+        String nom = nomField.getText().trim();
+        String prenom = prenomField.getText().trim();
+        String email = emailField.getText().trim();
+        String motDePasse = passwordField.getText();
         String role = roleSelector.getValue();
 
-        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty() || role == null) {
-            showAlert("Erreur", "Tous les champs doivent être remplis !");
+        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || role == null) {
+            showAlert(AlertType.WARNING, "Champs incomplets", "Veuillez remplir tous les champs.");
             return;
         }
 
-        // Créer un nouvel utilisateur
-        Utilisateur nouvelUtilisateur = new Utilisateur(0, nom, prenom, email, password, role);
+        // Créer l'utilisateur selon le rôle
+        // (Tu dois créer les classes Étudiant, Enseignant, Administrateur qui héritent de Utilisateur)
+        Utilisateur nouvelUtilisateur;
 
-        // Sauvegarder dans la base
-        nouvelUtilisateur.sauvegarder();
+        switch (role) {
+            case "Étudiant":
+                nouvelUtilisateur = new Etudiant(nom, prenom, email, motDePasse);
+                break;
+            case "Enseignant":
+                nouvelUtilisateur = new Enseignant(nom, prenom, email, motDePasse);
+                break;
+            case "Administrateur":
+                nouvelUtilisateur = new Administrateur(nom, prenom, email, motDePasse);
+                break;
+            default:
+                showAlert(AlertType.ERROR, "Rôle inconnu", "Rôle sélectionné non pris en charge.");
+                return;
+        }
 
-        showAlert("Succès", "Inscription réussie en tant que : " + role);
+        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+        boolean success = utilisateurDAO.addUtilisateur(nouvelUtilisateur);
 
-        // TODO: Enregistrer l'utilisateur dans une base de données
-        //System.out.println("Inscription réussie en tant que : " + role);
+        if (success) {
+            showAlert(AlertType.INFORMATION, "Inscription réussie", "Bienvenue " + prenom + " !");
+            clearForm();
+        } else {
+            showAlert(AlertType.ERROR, "Erreur", "Une erreur est survenue lors de l'inscription.");
+        }
     }
 
-   // @FXML
-   // private void goToLogin() {
-     //   HelloController controller = new HelloController();
-     //   controller.loadPage("hello-view.fxml");
-   // }
-   @FXML
-   private void goToLogin() {
-       // Utilisez n'importe quel contrôle de la vue actuelle (par exemple nomField)
-       SceneManager.navigateTo(nomField, "hello-view.fxml");
-   }
+    @FXML
+    private void goToLogin() {
+        // Utilisez n'importe quel contrôle de la vue actuelle (par exemple nomField)
+        SceneManager.navigateTo(nomField, "login.fxml");
+    }
 
     public class SceneManager {
 
         public static void navigateTo(Control sourceControl, String fxmlFile) {
             try {
-                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/fr/isep/algo/gestionemploisdutemps/" + fxmlFile));
+                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/fr/planningcampus/planningcampus/view/login.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) sourceControl.getScene().getWindow();
                 stage.setScene(new Scene(root));
@@ -74,11 +102,19 @@ public class InscriptionController {
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void clearForm() {
+        nomField.clear();
+        prenomField.clear();
+        emailField.clear();
+        passwordField.clear();
+        roleSelector.getSelectionModel().clearSelection();
     }
 }

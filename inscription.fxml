@@ -1,30 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.Font?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="fr.isep.algo.gestionemploisdutemps.InscriptionController">
 
-    <Label text="Inscription" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+<BorderPane prefHeight="500.0" prefWidth="600.0" styleClass="background"
+            stylesheets="@../css/styles.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.planningcampus.planningcampus.controller.InscriptionController">
 
-    <TextField fx:id="nomField" promptText="Nom"/>
-    <TextField fx:id="prenomField" promptText="Prénom"/>
-    <TextField fx:id="emailField" promptText="Email"/>
-    <PasswordField fx:id="passwordField" promptText="Mot de passe"/>
+    <!-- En-tête -->
+    <top>
+        <Label styleClass="header-label" text="Inscription - Système de Gestion des Emplois du Temps" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets top="30.0" />
+            </BorderPane.margin>
+        </Label>
+    </top>
 
-    <ComboBox fx:id="roleSelector">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Administrateur"/>
-                <String fx:value="Étudiant"/>
-                <String fx:value="Enseignant"/>
-            </FXCollections>
-        </items>
-    </ComboBox>
+    <!-- Centre : Formulaire -->
+    <center>
+        <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label styleClass="login-label" text="Créer un compte">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
 
-    <Button text="S'inscrire" onAction="#handleRegister"/>
-    <Hyperlink text="Retour à la connexion" onAction="#goToLogin"/>
-</VBox>
+                <HBox spacing="10">
+                    <Label styleClass="field-label" text="Nom:" />
+                    <TextField fx:id="nomField" promptText="Nom" prefWidth="250"/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="field-label" text="Prénom:" />
+                    <TextField fx:id="prenomField" promptText="Prénom" prefWidth="250"/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="field-label" text="Email:" />
+                    <TextField fx:id="emailField" promptText="Email" prefWidth="250"/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="field-label" text="Mot de passe:" />
+                    <PasswordField fx:id="passwordField" promptText="Mot de passe" prefWidth="250"/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="field-label" text="Rôle:" />
+                    <ComboBox fx:id="roleSelector" prefWidth="250">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Administrateur"/>
+                                <String fx:value="Étudiant"/>
+                                <String fx:value="Enseignant"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+
+                <Button text="S'inscrire"
+                        onAction="#handleRegister"
+                        prefHeight="40.0" prefWidth="150.0"
+                        styleClass="login-button">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                </Button>
+
+                <Hyperlink text="Retour à la connexion" onAction="#goToLogin"/>
+            </children>
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+        </VBox>
+    </center>
+
+    <!-- Pied de page -->
+    <bottom>
+        <Label text="© 2025 - Système de Gestion des Emplois du Temps" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="20.0"/>
+            </BorderPane.margin>
+        </Label>
+    </bottom>
+</BorderPane>
